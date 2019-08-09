@@ -198,7 +198,7 @@
                         <viewLayoutGuide key="safeArea" id="qV1-KJ-nVj"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pokemon Search" id="MGp-tr-4sL">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="wQT-Hy-B4s">
+                        <barButtonItem key="rightBarButtonItem" title=" " id="wQT-Hy-B4s">
                             <connections>
                                 <action selector="saveTapped:" destination="ZFW-0u-g4b" id="xxf-rH-3v0"/>
                             </connections>
@@ -211,6 +211,7 @@
                         <outlet property="idOutputLabel" destination="18j-LN-fD9" id="iC0-sc-tIR"/>
                         <outlet property="imageView" destination="1l2-M5-qg6" id="ga9-Ws-6qh"/>
                         <outlet property="nameLabel" destination="apM-QO-efU" id="aYp-Q6-iqx"/>
+                        <outlet property="saveBarButton" destination="wQT-Hy-B4s" id="411-v8-pHW"/>
                         <outlet property="searchBar" destination="DXB-yk-sYn" id="uUn-P9-mxU"/>
                         <outlet property="typesLabel" destination="hSu-LW-h3S" id="IIJ-GJ-tK6"/>
                         <outlet property="typesOutputLabel" destination="27y-tr-je5" id="HyU-8d-12u"/>

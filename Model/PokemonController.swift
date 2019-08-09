@@ -26,14 +26,19 @@ enum HTTPMethod: String {
 
 class PokemonController {
 
-	var pokemonArray: [Pokemon] = []
+	// MARK: - Properties
 
+	var pokemonArray: [Pokemon] = []
 	let baseURL = URL(string: "https://pokeapi.co/api/v2")!
+
+	// MARK: - Init
 
 	init() {
 		loadFromPersistentStore()
 	}
-	
+
+
+	// MARK: - API functions
 
 	func performPokemonSearch(searchTerm: String, completion: @escaping(Result<Pokemon, NetworkError>) -> Void) {
 
@@ -92,6 +97,9 @@ class PokemonController {
 		}.resume()
 	}
 
+
+	// MARK: - Pokemon Functions
+
 	func addPokemon(pokemon: Pokemon) {
 		pokemonArray.append(pokemon)
 		saveToPersistentStore()
@@ -102,6 +110,9 @@ class PokemonController {
 		pokemonArray.remove(at: index)
 		saveToPersistentStore()
 	}
+
+
+	// MARK: - Persistent Store Functions
 
 	func saveToPersistentStore() {
 		guard let url = pokemonListURL else { return }

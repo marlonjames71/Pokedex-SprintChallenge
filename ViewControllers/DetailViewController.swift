@@ -10,6 +10,8 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+	// MARK: - Properties & Outlets
+
 	var pokemonController: PokemonController?
 	var pokemon: Pokemon? {
 		didSet {
@@ -17,6 +19,7 @@ class DetailViewController: UIViewController {
 		}
 	}
 
+	@IBOutlet weak var saveBarButton: UIBarButtonItem!
 	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var imageView: UIImageView!
@@ -28,6 +31,8 @@ class DetailViewController: UIViewController {
 	@IBOutlet weak var abilitiesLabel: UILabel!
 
 
+	// MARK: - Lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 		updateViews()
@@ -35,16 +40,29 @@ class DetailViewController: UIViewController {
 		if pokemon == nil {
 			isHidden(hidden: true)
 		}
+
+		saveBarButton.setBackgroundImage(UIImage(named: "openPokeball"), for: .normal, barMetrics: .default)
+		
     }
 
-    
+
+	// MARK: - IBActions
+
 	@IBAction func saveTapped(_ sender: UIBarButtonItem) {
 		guard let pokemonController = pokemonController,
 			let pokemon = pokemon else { return }
-		pokemonController.addPokemon(pokemon: pokemon)
-		navigationController?.popToRootViewController(animated: true)
+		if pokemonController.pokemonArray.contains(pokemon) {
+			let alert = UIAlertController(title: "You've already captured \(pokemon.name.capitalized)", message: nil, preferredStyle: .alert)
+			alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+			present(alert, animated: true, completion: nil)
+		} else {
+			pokemonController.addPokemon(pokemon: pokemon)
+			navigationController?.popToRootViewController(animated: true)
+		}
 	}
 
+
+	// MARK: - Helper Methods
 
 	private func updateViews() {
 		loadViewIfNeeded()

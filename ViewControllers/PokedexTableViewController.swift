@@ -10,7 +10,11 @@ import UIKit
 
 class PokedexTableViewController: UITableViewController {
 
+	// MARK: - Properties
+
 	let pokemonController = PokemonController()
+
+	// MARK: - Lifecycle
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
