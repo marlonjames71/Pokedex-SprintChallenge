@@ -10,6 +10,13 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+	var pokemonController: PokemonController?
+	var pokemon: Pokemon? {
+		didSet {
+			updateViews()
+		}
+	}
+
 	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var nameLabel: UILabel!
 	@IBOutlet weak var imageView: UIImageView!
@@ -21,18 +28,34 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
+
     
+	@IBAction func saveTapped(_ sender: UIBarButtonItem) {
+	}
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+	private func updateViews() {
+		guard let pokemon = pokemon else { return }
+		nameLabel.text = pokemon.name
+		idOutputLabel.text = "\(pokemon.id)"
+		let types = "\([pokemon.types])"
+//		typesOutputLabel.text =
+	}
+}
 
+extension DetailViewController: UISearchBarDelegate {
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+		guard let searchInput = searchBar.text,
+			let pokeController = pokemonController else { return }
+
+		pokeController.performPokemonSearch(searchTerm: searchInput) { (result) in
+			
+			if let pokemon = try? result.get() {
+				DispatchQueue.main.async {
+					self.pokemon = pokemon
+				}
+			}
+		}
+	}
 }

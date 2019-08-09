@@ -8,12 +8,61 @@
 
 import Foundation
 
+enum NetworkError: Error {
+	case noToken
+	case badURL
+	case noData
+	case noDecode
+	case otherError(Error)
+	case badStatusCode
+}
+
+enum HTTPMethod: String {
+	case get = "GET"
+	case put = "PUT"
+	case post = "POST"
+	case delet = "DELETE"
+}
 
 class PokemonController {
 
 	var pokemonArray: [Pokemon] = []
 
-	let baseURL = URL(string: "pokeapi.co/api/v2/pokemon")
+	let baseURL = URL(string: "pokeapi.co/api/v2")!
+	
+
+	func performPokemonSearch(searchTerm: String, completion: @escaping(Result<Pokemon, NetworkError>) -> Void) {
+
+		let pokemonURL = baseURL.appendingPathComponent(searchTerm.lowercased())
+
+		var request = URLRequest(url: pokemonURL)
+		request.httpMethod = HTTPMethod.get.rawValue
+
+		URLSession.shared.dataTask(with: request) { (data, _, error) in
+
+			if let error = error {
+				NSLog("Error fetching pokemon: \(error)")
+				completion(.failure(.otherError(error)))
+				return
+			}
+
+			guard let data = data else {
+				NSLog("No data returned with fetching: \(searchTerm)")
+				completion(.failure(.noData))
+				return
+			}
+
+			do {
+				let pokemon = try JSONDecoder().decode(Pokemon.self, from: data)
+				completion(.success(pokemon))
+			} catch {
+				NSLog("Error decoding Pokemon object: \(error)")
+				completion(.failure(.noDecode))
+			}
+		}.resume()
+	}
+
+
 
 
 }
