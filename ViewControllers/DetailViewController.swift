@@ -47,6 +47,7 @@ class DetailViewController: UIViewController {
 
 
 	private func updateViews() {
+		loadViewIfNeeded()
 		if pokemon != nil {
 			title = pokemon?.name.capitalized
 		} else {
@@ -69,6 +70,14 @@ class DetailViewController: UIViewController {
 
 		typesOutputLabel.text = types.joined(separator: ", ")
 		abilitiesOutputLabel.text = abilities.joined(separator: ", ")
+
+		pokemonController?.fetchSprites(from: pokemon.sprites.frontDefault, completion: { (result) in
+			if let imageResult = try? result.get() {
+				DispatchQueue.main.async {
+					self.imageView.image = UIImage(data: imageResult)
+				}
+			}
+		})
 	}
 
 	func isHidden(hidden: Bool) {
@@ -93,7 +102,6 @@ extension DetailViewController: UISearchBarDelegate {
 				DispatchQueue.main.async {
 					self.pokemon = pokemon
 					self.isHidden(hidden: false)
-					print(self.pokemon)
 					self.updateViews()
 				}
 

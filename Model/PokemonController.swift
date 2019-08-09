@@ -87,4 +87,8 @@ class PokemonController {
 			completion(.success(data))
 		}.resume()
 	}
+
+	func saveToPersistentStore() {
+		
+	}
 }

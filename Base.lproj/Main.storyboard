@@ -18,9 +18,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="M5E-xJ-sF6">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="210" translatesAutoresizingMaskIntoConstraints="NO" id="DXp-eE-DAV">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dk2-td-SRZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="102" height="44"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                            <color key="textColor" red="0.88473809400000003" green="1" blue="0.45247711909999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrn-70-um2">
+                                            <rect key="frame" x="312" y="0.0" width="102" height="44"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                            <color key="textColor" red="0.88473809400000003" green="1" blue="0.45247711909999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="1" green="0.11450415360000001" blue="0.37467125220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" red="1" green="0.11450415360000001" blue="0.37467125220000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="DXp-eE-DAV" firstAttribute="top" secondItem="M5E-xJ-sF6" secondAttribute="top" id="LUr-4r-01V"/>
+                                <constraint firstAttribute="bottom" secondItem="DXp-eE-DAV" secondAttribute="bottom" id="iNz-2H-mp8"/>
+                                <constraint firstItem="DXp-eE-DAV" firstAttribute="leading" secondItem="M5E-xJ-sF6" secondAttribute="leading" id="n7g-l5-9v2"/>
+                                <constraint firstAttribute="trailing" secondItem="DXp-eE-DAV" secondAttribute="trailing" id="y3u-az-TQg"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="PokemonCell" textLabel="TYK-N3-g1p" detailTextLabel="19o-ay-ePK" style="IBUITableViewCellStyleValue1" id="TaZ-Je-DFg">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TaZ-Je-DFg" id="zRz-w0-Nb7">
                                     <rect key="frame" x="0.0" y="0.0" width="376" height="43.5"/>
