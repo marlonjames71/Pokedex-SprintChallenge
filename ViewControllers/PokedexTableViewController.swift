@@ -22,6 +22,7 @@ class PokedexTableViewController: UITableViewController {
 		tableView.tableFooterView = UIView()
     }
 
+
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,13 +39,13 @@ class PokedexTableViewController: UITableViewController {
         return cell
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		let pokemon = pokemonController.pokemonArray[indexPath.row]
+		if editingStyle == .delete {
+			pokemonController.delete(pokemon: pokemon)
+			tableView.deleteRows(at: [indexPath], with: .fade)
+		}
+	}
 
 
     // MARK: - Navigation

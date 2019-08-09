@@ -41,7 +41,7 @@ class DetailViewController: UIViewController {
 	@IBAction func saveTapped(_ sender: UIBarButtonItem) {
 		guard let pokemonController = pokemonController,
 			let pokemon = pokemon else { return }
-		pokemonController.pokemonArray.append(pokemon)
+		pokemonController.addPokemon(pokemon: pokemon)
 		navigationController?.popToRootViewController(animated: true)
 	}
 
