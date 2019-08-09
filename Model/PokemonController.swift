@@ -28,12 +28,13 @@ class PokemonController {
 
 	var pokemonArray: [Pokemon] = []
 
-	let baseURL = URL(string: "pokeapi.co/api/v2")!
+	let baseURL = URL(string: "https://pokeapi.co/api/v2")!
 	
 
 	func performPokemonSearch(searchTerm: String, completion: @escaping(Result<Pokemon, NetworkError>) -> Void) {
 
-		let pokemonURL = baseURL.appendingPathComponent(searchTerm.lowercased())
+		let pokemonURL = baseURL.appendingPathComponent("pokemon")
+								.appendingPathComponent(searchTerm.lowercased())
 
 		var request = URLRequest(url: pokemonURL)
 		request.httpMethod = HTTPMethod.get.rawValue
@@ -63,6 +64,27 @@ class PokemonController {
 	}
 
 
+	func fetchSprites(from imageURL: String, completion: @escaping(Result<Data, NetworkError>) -> Void) {
 
+		let imageURL = URL(string: imageURL)!
 
+		var request = URLRequest(url: imageURL)
+		request.httpMethod = HTTPMethod.get.rawValue
+
+		URLSession.shared.dataTask(with: request) { (imageData, _, error) in
+
+			if let error = error {
+				completion(.failure(.otherError(error)))
+				NSLog("Error fetching image: \(error)")
+				return
+			}
+
+			guard let data = imageData else {
+				completion(.failure(.noData))
+				NSLog("No data provided for image: \(imageURL)")
+				return
+			}
+			completion(.success(data))
+		}.resume()
+	}
 }

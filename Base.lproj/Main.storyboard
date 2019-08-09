@@ -174,11 +174,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="abilitiesLabel" destination="Kue-01-EkY" id="Vsc-2D-Y6p"/>
                         <outlet property="abilitiesOutputLabel" destination="H4m-vW-PAp" id="LVj-2j-2bE"/>
+                        <outlet property="idLabel" destination="GXR-R2-J55" id="a0n-s4-ceQ"/>
                         <outlet property="idOutputLabel" destination="18j-LN-fD9" id="iC0-sc-tIR"/>
                         <outlet property="imageView" destination="1l2-M5-qg6" id="ga9-Ws-6qh"/>
                         <outlet property="nameLabel" destination="apM-QO-efU" id="aYp-Q6-iqx"/>
                         <outlet property="searchBar" destination="DXB-yk-sYn" id="uUn-P9-mxU"/>
+                        <outlet property="typesLabel" destination="hSu-LW-h3S" id="IIJ-GJ-tK6"/>
                         <outlet property="typesOutputLabel" destination="27y-tr-je5" id="HyU-8d-12u"/>
                     </connections>
                 </viewController>
