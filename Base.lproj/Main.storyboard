@@ -181,14 +181,14 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ANX-oV-WOw" secondAttribute="height" multiplier="1:1" id="cfz-ER-kjZ"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wXO-36-7L3">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="20" id="wXO-36-7L3">
                                     <size key="itemSize" width="360" height="360"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="20" minY="20" maxX="20" maxY="20"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="oHt-qe-hve" customClass="PokemonCollectionViewCell" customModule="Pokedex_SprintChallenge" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="oHt-qe-hve" customClass="PokemonCollectionViewCell" customModule="Pokedex_SprintChallenge" customModuleProvider="target">
                                         <rect key="frame" x="20" y="27" width="360" height="360"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -202,7 +202,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="360" height="360"/>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="1" green="0.13436908689999999" blue="0.44001242689999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="1" green="0.14521069802665487" blue="0.37651569515889427" alpha="0.90092983128834359" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="paK-sH-9kD" firstAttribute="leading" secondItem="crc-jd-oW4" secondAttribute="leading" id="Z2l-gc-BJe"/>
                                                         <constraint firstItem="paK-sH-9kD" firstAttribute="top" secondItem="crc-jd-oW4" secondAttribute="top" id="bfr-9O-HGf"/>
@@ -219,7 +219,7 @@
                                             <constraint firstAttribute="trailing" secondItem="crc-jd-oW4" secondAttribute="trailing" id="Yys-1f-mRb"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="imageView" destination="paK-sH-9kD" id="iau-kh-QeW"/>
+                                            <outlet property="imageView" destination="paK-sH-9kD" id="6zs-AB-CHX"/>
                                             <outlet property="viewForImage" destination="crc-jd-oW4" id="Yja-Md-9x9"/>
                                         </connections>
                                     </collectionViewCell>

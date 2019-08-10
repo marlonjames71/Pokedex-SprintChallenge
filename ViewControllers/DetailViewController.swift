@@ -17,6 +17,7 @@ class DetailViewController: UIViewController {
 	var pokemonImages: [UIImage] = []
 	var pokemon: Pokemon? {
 		didSet {
+			pokemonImages.removeAll(keepingCapacity: true)
 			updateViews()
 		}
 	}
