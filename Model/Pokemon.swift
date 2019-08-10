@@ -14,7 +14,7 @@ struct Pokemon: Codable, Equatable {
 	let id: Int
 	let types: [TypeElement]
 	let name: String
-	let sprites: Sprites
+	let sprites: [String : URL]
 }
 
 struct Ability: Codable, Equatable {
@@ -25,15 +25,21 @@ struct Species: Codable, Equatable {
 	let name: String
 }
 
-struct Sprites: Codable, Equatable {
-	let frontDefault: String
-	let frontShiny: String
-
-	enum CodingKeys: String, CodingKey {
-		case frontDefault = "front_default"
-		case frontShiny = "front_shiny"
-	}
-}
+//struct Sprites: Codable, Equatable {
+//	let frontDefault, frontShiny, frontFemale, frontShinyFemale : String
+//	let backDefault, backShiny, backFemale, backShinyFemale: String
+//
+//	enum CodingKeys: String, CodingKey {
+//		case backDefault = "back_default"
+//		case backFemale = "back_female"
+//		case backShiny = "back_shiny"
+//		case backShinyFemale = "back_shiny_female"
+//		case frontDefault = "front_default"
+//		case frontFemale = "front_female"
+//		case frontShiny = "front_shiny"
+//		case frontShinyFemale = "front_shiny_female"
+//	}
+//}
 
 struct TypeElement: Codable, Equatable {
 	let type: Species

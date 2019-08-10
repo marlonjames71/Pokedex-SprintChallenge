@@ -29,6 +29,7 @@ class PokemonController {
 	// MARK: - Properties
 
 	var pokemonArray: [Pokemon] = []
+	var pokemonImages: [URL] = []
 	let baseURL = URL(string: "https://pokeapi.co/api/v2")!
 
 	// MARK: - Init
@@ -73,9 +74,9 @@ class PokemonController {
 	}
 
 
-	func fetchSprites(from imageURL: String, completion: @escaping(Result<Data, NetworkError>) -> Void) {
+	func fetchSprite(from imageURL: String, completion: @escaping(Result<Data, NetworkError>) -> Void) {
 
-		let imageURL = URL(string: imageURL)!
+		guard let imageURL = URL(string: imageURL) else { return }
 
 		var request = URLRequest(url: imageURL)
 		request.httpMethod = HTTPMethod.get.rawValue

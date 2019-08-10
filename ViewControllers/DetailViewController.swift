@@ -13,16 +13,19 @@ class DetailViewController: UIViewController {
 	// MARK: - Properties & Outlets
 
 	var pokemonController: PokemonController?
+
+	var pokemonImages: [UIImage] = []
 	var pokemon: Pokemon? {
 		didSet {
 			updateViews()
 		}
 	}
 
+	@IBOutlet weak var collectionView: UICollectionView!
 	@IBOutlet weak var saveBarButton: UIBarButtonItem!
 	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var nameLabel: UILabel!
-	@IBOutlet weak var imageView: UIImageView!
+//	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var idOutputLabel: UILabel!
 	@IBOutlet weak var typesOutputLabel: UILabel!
 	@IBOutlet weak var abilitiesOutputLabel: UILabel!
@@ -33,17 +36,22 @@ class DetailViewController: UIViewController {
 
 	// MARK: - Lifecycle
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		collectionView.reloadData()
+	}
+
     override func viewDidLoad() {
         super.viewDidLoad()
 		updateViews()
+		collectionView.delegate = self
+		collectionView.dataSource = self
+		collectionView.reloadData()
 		searchBar.delegate = self
-		if pokemon == nil {
-			isHidden(hidden: true)
-		}
-
 		saveBarButton.setBackgroundImage(UIImage(named: "openPokeball"), for: .normal, barMetrics: .default)
-		
     }
+
+
 
 
 	// MARK: - IBActions
@@ -66,46 +74,39 @@ class DetailViewController: UIViewController {
 
 	private func updateViews() {
 		loadViewIfNeeded()
-		if pokemon != nil {
-			title = pokemon?.name.capitalized
-		} else {
-			title = "Pokemon Search"
-		}
+
+		title = pokemon?.name.capitalized ?? "Pokemon Search"
+
+		isHidden(hidden: pokemon == nil)
 
 		guard let pokemon = pokemon else { return }
+
 		nameLabel.text = pokemon.name.capitalized
 		idOutputLabel.text = "\(pokemon.id)"
 
-		var types: [String] = []
-		for type in pokemon.types {
-			types.append(type.type.name)
-		}
-
-		var abilities: [String] = []
-		for ability in pokemon.abilities {
-			abilities.append(ability.ability.name)
-		}
+		let types: [String] = pokemon.types.map { $0.type.name }
+		let abilities: [String] = pokemon.abilities.map { $0.ability.name }
 
 		typesOutputLabel.text = types.joined(separator: ", ")
 		abilitiesOutputLabel.text = abilities.joined(separator: ", ")
 
-		pokemonController?.fetchSprites(from: pokemon.sprites.frontDefault, completion: { (result) in
-			if let imageResult = try? result.get() {
-				DispatchQueue.main.async {
-					self.imageView.image = UIImage(data: imageResult)
+		for sprite in pokemon.sprites {
+			pokemonController?.fetchSprite(from: "\(sprite.value)", completion: { (result) in
+				if let imageResult = try? result.get(),
+					let image = UIImage(data: imageResult) {
+					self.pokemonImages.append(image)
 				}
-			}
-		})
+				DispatchQueue.main.async {
+					self.collectionView.reloadData()
+				}
+			})
+		}
 	}
 
 	func isHidden(hidden: Bool) {
-		nameLabel.isHidden = hidden
-		idOutputLabel.isHidden = hidden
-		typesOutputLabel.isHidden = hidden
-		abilitiesOutputLabel.isHidden = hidden
-		idLabel.isHidden = hidden
-		typesLabel.isHidden = hidden
-		abilitiesLabel.isHidden = hidden
+		[nameLabel, idOutputLabel, typesOutputLabel,
+		 abilitiesLabel, idLabel, typesLabel,
+		 abilitiesOutputLabel].forEach { $0?.isHidden = hidden }
 	}
 }
 
@@ -119,19 +120,23 @@ extension DetailViewController: UISearchBarDelegate {
 			if let pokemon = try? result.get() {
 				DispatchQueue.main.async {
 					self.pokemon = pokemon
-					self.isHidden(hidden: false)
-					self.updateViews()
 				}
-
-				pokeController.fetchSprites(from: pokemon.sprites.frontDefault, completion: { (result) in
-					if let imageResult = try? result.get() {
-						DispatchQueue.main.async {
-							self.imageView.image = UIImage(data: imageResult)
-							self.updateViews()
-						}
-					}
-				})
 			}
 		}
+		searchBar.endEditing(true)
+	}
+}
+
+extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return pokemonImages.count
+	}
+
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as? PokemonCollectionViewCell else { return UICollectionViewCell() }
+
+		cell.imageView.image = pokemonImages[indexPath.row]
+
+		return cell
 	}
 }
