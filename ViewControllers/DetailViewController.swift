@@ -49,6 +49,9 @@ class DetailViewController: UIViewController {
 		collectionView.dataSource = self
 		collectionView.reloadData()
 		searchBar.delegate = self
+		if pokemon == nil {
+			searchBar.becomeFirstResponder()
+		}
 		saveBarButton.setBackgroundImage(UIImage(named: "openPokeball"), for: .normal, barMetrics: .default)
     }
 
@@ -79,6 +82,12 @@ class DetailViewController: UIViewController {
 		title = pokemon?.name.capitalized ?? "Pokemon Search"
 
 		isHidden(hidden: pokemon == nil)
+
+		if pokemon == nil {
+			searchBar.isHidden = false
+		} else {
+			searchBar.isHidden = true
+		}
 
 		guard let pokemon = pokemon else { return }
 
